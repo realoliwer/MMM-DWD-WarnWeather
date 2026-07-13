@@ -56,10 +56,16 @@ module.exports = NodeHelper.create({
 
                 var requests = 2;
 
+		var fetchOptions = {
+			method: 'GET',
+			headers: {
+				'User-Agent': 'Mozilla/5.0 (MagicMirror) MMM-DWD-WarnWeather',
+				'Accept-Encoding': 'identity'
+			}
+		};
+
 		//get name
-		fetch(nameurl, {
-			method: 'GET'
-		}).then(res => res.json()
+		fetch(nameurl, fetchOptions).then(res => res.json()
 		).then(json => {
 			if (json && json.totalFeatures === 1) {
 				communityData = json.features[0];
@@ -81,9 +87,7 @@ module.exports = NodeHelper.create({
 		});
 
 		//get warnings
-		fetch(warnurl, {
-			method: 'GET'
-		}).then(res => res.json()
+		fetch(warnurl, fetchOptions).then(res => res.json()
 		).then(json => {
 			if (json && json.totalFeatures > 0) {
 				for (var i = 0; i < json.totalFeatures; i++) {
