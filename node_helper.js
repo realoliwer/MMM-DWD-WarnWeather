@@ -58,6 +58,7 @@ module.exports = NodeHelper.create({
 
 		var fetchOptions = {
 			method: 'GET',
+			compress: false,
 			headers: {
 				'User-Agent': 'Mozilla/5.0 (MagicMirror) MMM-DWD-WarnWeather',
 				'Accept-Encoding': 'identity'
