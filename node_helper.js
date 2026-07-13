@@ -61,9 +61,17 @@ module.exports = NodeHelper.create({
 			method: 'GET'
 		}).then(res => res.json()
 		).then(json => {
-			if (json.totalFeatures === 1) {
+			if (json && json.totalFeatures === 1) {
 				communityData = json.features[0];
 			}
+			if (--requests === 0) {
+				if (region.reg)
+					callback(self, warningData, region.reg, communityData);
+				else if (region.cellid)
+					callback(self, warningData, region.cellid, communityData);
+			}
+		}).catch(err => {
+			console.error("[MMM-DWD-WarnWeather] Error fetching nameurl:", err.message);
 			if (--requests === 0) {
 				if (region.reg)
 					callback(self, warningData, region.reg, communityData);
@@ -77,11 +85,19 @@ module.exports = NodeHelper.create({
 			method: 'GET'
 		}).then(res => res.json()
 		).then(json => {
-			if (json.totalFeatures > 0) {
+			if (json && json.totalFeatures > 0) {
 				for (var i = 0; i < json.totalFeatures; i++) {
 					warningData.push(json.features[i]);
 				}
 			}
+			if (--requests === 0) {
+				if (region.reg)
+					callback(self, warningData, region.reg, communityData);
+				else if (region.cellid)
+					callback(self, warningData, region.cellid, communityData);
+			}
+		}).catch(err => {
+			console.error("[MMM-DWD-WarnWeather] Error fetching warnurl:", err.message);
 			if (--requests === 0) {
 				if (region.reg)
 					callback(self, warningData, region.reg, communityData);
