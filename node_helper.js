@@ -9,7 +9,36 @@
  */
 
 var NodeHelper = require('node_helper');
-const fetch = require('node-fetch');
+const https = require('https');
+
+function fetchJsonRobust(url, options) {
+	return new Promise((resolve, reject) => {
+		const req = https.get(url, options, (res) => {
+			let body = '';
+			res.on('data', chunk => {
+				body += chunk;
+			});
+			res.on('end', () => {
+				try {
+					resolve(JSON.parse(body));
+				} catch (e) {
+					reject(new Error("JSON Parse Error: " + e.message));
+				}
+			});
+			res.on('close', () => {
+				if (!res.complete) {
+					try {
+						resolve(JSON.parse(body));
+					} catch (e) {
+						reject(new Error("Premature close, incomplete JSON"));
+					}
+				}
+			});
+		});
+		req.on('error', (err) => reject(err));
+		req.end();
+	});
+}
 
 module.exports = NodeHelper.create({
 	start: function () {
@@ -57,17 +86,14 @@ module.exports = NodeHelper.create({
                 var requests = 2;
 
 		var fetchOptions = {
-			method: 'GET',
-			compress: false,
 			headers: {
 				'User-Agent': 'Mozilla/5.0 (MagicMirror) MMM-DWD-WarnWeather',
-				'Accept-Encoding': 'identity'
+				'Connection': 'close'
 			}
 		};
 
 		//get name
-		fetch(nameurl, fetchOptions).then(res => res.json()
-		).then(json => {
+		fetchJsonRobust(nameurl, fetchOptions).then(json => {
 			if (json && json.totalFeatures === 1) {
 				communityData = json.features[0];
 			}
@@ -88,8 +114,7 @@ module.exports = NodeHelper.create({
 		});
 
 		//get warnings
-		fetch(warnurl, fetchOptions).then(res => res.json()
-		).then(json => {
+		fetchJsonRobust(warnurl, fetchOptions).then(json => {
 			if (json && json.totalFeatures > 0) {
 				for (var i = 0; i < json.totalFeatures; i++) {
 					warningData.push(json.features[i]);
