@@ -1,6 +1,6 @@
 MMM-DWD-WarnWeather
 ===================
-This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror). It can display weather-warnings of [Deutscher Wetterdienst](http://www.dwd.de/DE/Home/home_node.html). The module shows you current weather-warnings of your region in Germany.
+This a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror). It can display weather-warnings of [Deutscher Wetterdienst](http://www.dwd.de/DE/Home/home_node.html). The module shows you current weather-warnings of your region in Germany.
 
 ## Preview
 
@@ -10,7 +10,8 @@ This a module for the [MagicMirror](https://github.com/MichMich/MagicMirror). It
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/LukeSkywalker92/MMM-DWD-WarnWeather.git`. A new folder will appear, navigate into it.
 2. Execute `npm install` to install the node dependencies.
 
-
+## Update
+To update the module to the latest version, navigate into your module folder and run `git pull`.
 
 ## Config
 The entry in `config.js` can include the following options:
@@ -64,7 +65,9 @@ Here is an example of an entry in `config.js`
 - Because it's only data for germany, i did not translate any of the warnings to english. Also feel free to do that.
 
 ## Special Thanks
-- [Michael Teeuw](https://github.com/MichMich) for creating the awesome [MagicMirror2](https://github.com/MichMich/MagicMirror/tree/develop) project that made this module possible.
+- [Michael Teeuw](https://github.com/MichMich) for creating the awesome [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror/tree/develop) project that made this module possible.
+
+
 - [SamLewis0602](https://github.com/SamLewis0602) for creating the [MMM-Traffic](https://github.com/SamLewis0602/MMM-Traffic) module that I used as guidance in creating this module.
 
 ## Documentation of the DWD Api
