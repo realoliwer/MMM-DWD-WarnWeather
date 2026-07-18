@@ -8,10 +8,14 @@ This a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMir
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/LukeSkywalker92/MMM-DWD-WarnWeather.git`. A new folder will appear, navigate into it.
-2. Execute `npm install` to install the node dependencies.
+2. Execute `npm install --omit=dev` to install the node dependencies without development tools.
 
 ## Update
-To update the module to the latest version, navigate into your module folder and run `git pull`.
+To update the module to the latest version, navigate into your module folder and run:
+```bash
+git pull
+npm install --omit=dev
+```
 
 ## Config
 The entry in `config.js` can include the following options:
@@ -56,7 +60,8 @@ Here is an example of an entry in `config.js`
 ```
 
 ## Dependencies
-- [request](https://www.npmjs.com/package/request) (installed via `npm install`)
+- [moment](https://www.npmjs.com/package/moment) (installed via `npm install --omit=dev`)
+- Native global `fetch` API (built into Node.js 18+)
 
 ## Important Notes
 - This is my first project using Node, so feel free to submit pull requests or post on the issues/wiki and I will do my best to improve the project.
